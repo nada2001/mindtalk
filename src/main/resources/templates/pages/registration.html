@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="title">
+    Registration Form
+  </div>
+
+  <form class="form" th:object="${user}" method="post" th:action="@{/register}">
+    <div class="inputfield">
+      <label>Names</label>
+      <div>
+        <input type="text" class="input" th:field="*{names}">
+        <p th:each="error : ${#fields.errors('names')}" class="error"
+           th:text="${error}">Validation error</p>
+      </div>
+
+    </div>
+
+    <div class="inputfield">
+      <label>Email Address</label>
+      <div>
+        <input type="text" class="input" th:field="*{email}">
+        <p th:each="error : ${#fields.errors('email')}" class="error"
+           th:text="${error}"></p>
+
+        <p th:if="${message != null}" class="error"
+           th:text="${message}"></p>
+      </div>
+
+    </div>
+
+    <div class="inputfield">
+      <label>Password</label>
+      <div>
+        <input type="password" class="input" th:field="*{password}">
+        <p th:each="error : ${#fields.errors('password')}" class="error"
+           th:text="${error}">Validation error</p>
+      </div>
+
+    </div>
+    <div class="inputfield">
+      <input type="submit" value="Register" class="btn">
+    </div>
+  </form>
+  <a th:href="@{/login}">Login</a>
+</div>
+
+</body>
+</html>

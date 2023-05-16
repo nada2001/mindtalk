@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>MindTalk Chatroom Application</title>
+  <link rel="stylesheet" th:href="@{/css/main.css}"/>
+  <script th:src="@{/js/jquery-3.7.0.min.js}"></script>
+</head>
+<body
+    th:style="'background-image: ' + @{/images/maxresdefault.jpg} + ';background-position: center; background-repeat: no-repeat; background-size: cover;'">
+
+
+<div id="username-page">
+  <div class="username-page-container">
+    <h1 class="title">Hello <span th:remove="tag" sec:authentication="principal.names"></span>!</h1>
+    <form id="usernameForm" name="usernameForm">
+      <div class="form-group">
+        <input type="hidden" id="name" placeholder="Name"
+               th:value="${#authentication.principal.names}"
+               autocomplete="off" class="form-control"/>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="accent username-submit">Join Chatroom</button>
+      </div>
+    </form>
+    <form th:action="@{/logout}" method="post">
+      <button type="submit" class="logout username-submit">Logout</button>
+    </form>
+  </div>
+</div>
+
+<div id="chat-page" class="hidden">
+  <div class="chat-container">
+    <form th:action="@{/logout}" method="post" id="leaveForm">
+      <div class="chat-header">
+        <div>Mind Talk chatroom</div>
+        <button type="submit" class="logout">Leave</button>
+      </div>
+    </form>
+    <div class="connecting">connecting to chat...</div>
+    <ul id="messageArea">
+
+    </ul>
+    <form id="messageForm" name="messageForm" nameForm="messageForm">
+      <div class="form-group">
+        <div class="input-group clearfix">
+          <input type="text" id="message" placeholder="type a message..."
+                 autocomplete="off" class="form-control"/>
+          <button type="submit" class="primary">Send</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script
+    th:src="@{https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js}"></script>
+<script
+    th:src="@{https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>

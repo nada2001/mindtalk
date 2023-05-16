@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql
+    container_name: mindtalk-db
+    restart: always
+    volumes:
+      - mindtalk_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: mindtalk
+    ports:
+      - "3306:3306"
+
+volumes:
+  mindtalk_data:
